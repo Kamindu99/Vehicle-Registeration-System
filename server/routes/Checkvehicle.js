@@ -1,11 +1,11 @@
 var express = require("express");
 var router = express.Router();
 
-var nameA;
+
 router.post('/add',(req,res)=>{
-    nameA=req.body.name;
-    res.send(nameA);
-if(/^([a-zA-Z]{1,3}|((?!0*-)[0-9]{1,3}))( {0,1})-( {0,1})[0-9]{4}(?<!0{4})/.test(nameA))
+    var nameA=req.body.name;
+    
+if(/^([a-zA-Z]{1,3}|((?!0*-)[0-9]{1,3}))( {0,1})-( {0,1})([0-9]{4})(?<!0{4})/.test(nameA))
 {
     if(/[a-zA-Z]/.test(nameA))    
         nameA="Modern Vehicle";
@@ -31,12 +31,9 @@ else if(nameA.length === 0)
 else{
     nameA="Invalide Vehicle Number";
 }
-
+res.send(nameA);
    
 });
 
-router.get("/",function(req,res,next){
-    res.send(nameA);
-});
 
 module.exports= router;

@@ -2,12 +2,30 @@ import React, { useState, useEffect } from "react";
 import {useHistory,useParams } from 'react-router-dom';
 import axios from "axios";
 import { Form } from "react-bootstrap";
+import Select from "react-select";
 
 const EditVehicleDetails = ()=>{
 
   const [validated, setValidated] = useState(false);
 
   let history = useHistory();
+
+
+  const optionList = [
+    {  value: "Bicycle", label: "Bicycle" },
+    {  value: "Car", label: "Car" },
+    {  value: "Van", label: "Van" },
+    {  value: "Bus", label: "Bus" },
+    {  value: "Lorry", label: "Lorry" },
+    {  value: "Treeweel", label: "Treeweel" },
+    {  value: "Truck", label: "Truck" },
+    {  value: "Tracter", label: "Tracter" }
+  ];
+  
+  function handleSelect(data) {
+    setvehicle({ ...vehicle, ["model"]: data.value });
+    
+  } 
 
   const { id } = useParams();
   const [vehicle, setvehicle] = useState({
@@ -99,15 +117,14 @@ const EditVehicleDetails = ()=>{
             <div className="form-group row">
             <label for="inputEmail3" class="col-sm-4 col-form-label">Enter Vehicle Model :-</label>
             <div class="col-sm-8">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter Vehicle Model"
-                name="model"
-                value={model}
-                onChange={(e) => onInputChange(e)}
-                required
-              />
+            <Select
+  options={optionList}
+  placeholder="Select Vehicle Model"
+  onChange={handleSelect}
+  isSearchable={true}
+  value={optionList.find(item => item.value === model)}
+  required
+/>
               <Form.Control.Feedback type="invalid">
               Please provide Valid Vehicle Model 
             </Form.Control.Feedback>

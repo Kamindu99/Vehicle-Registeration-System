@@ -2,23 +2,38 @@ import React,{useState} from "react"
 import {useHistory} from 'react-router-dom';
 import axios from "axios";
 import { Form } from "react-bootstrap";
+import Select from "react-select";
 
 const Restration = ()=>{
 
     const [validated, setValidated] = useState(false);
 
-let history = useHistory();
+const optionList = [
+  {  value: "Bicycle", label: "Bicycle" },
+  {  value: "Car", label: "Car" },
+  {  value: "Van", label: "Van" },
+  {  value: "Bus", label: "Bus" },
+  {  value: "Lorry", label: "Lorry" },
+  {  value: "Treeweel", label: "Treeweel" },
+  {  value: "Truck", label: "Truck" },
+  {  value: "Tracter", label: "Tracter" }
+];
+
+function handleSelect(data) {
+  addvehicle({ ...vehicle, ["model"]: data.value });
+  
+} 
 
   const [vehicle, addvehicle] = useState({
     vehicleNumber: "",
     engineCC: "",
-    model: "",
     vehicleClass: "",
     yearofMade: "",
+    model:"",
     fuelUsed: "",
     makeCompany: ""
   });
-  const { vehicleNumber, engineCC,model, vehicleClass,yearofMade,fuelUsed,makeCompany} = vehicle;
+  const { vehicleNumber, engineCC, model,vehicleClass,yearofMade,fuelUsed,makeCompany} = vehicle;
   const onInputChange = (e) => {
     addvehicle({ ...vehicle, [e.target.name]: e.target.value });
   };
@@ -87,20 +102,25 @@ let history = useHistory();
             <div className="form-group row">
             <label for="inputEmail3" class="col-sm-4 col-form-label">Enter Vehicle Model :-</label>
             <div class="col-sm-8">
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter Vehicle Model"
-                name="model"
-                value={model}
-                onChange={(e) => onInputChange(e)}
-                required
-              />
+            
+   
+
+
+<Select
+  options={optionList}
+  placeholder="Select Vehicle Model"
+  onChange={handleSelect}
+  isSearchable={true}
+  value={optionList.value}
+  required
+/>
+  
+
+
               <Form.Control.Feedback type="invalid">
               Please provide Valid Vehicle Model 
             </Form.Control.Feedback>
             </div></div>
-
 
             <div className="form-group row">
              <label for="inputEmail3" class="col-sm-4 col-form-label">Select Vehicle Class :-</label>

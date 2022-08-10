@@ -1,3 +1,7 @@
 body {
     background-color: hsl(0,0%,0%,0.1);
 }
+
+.dropdown-container {
+    width: 300px;
+  }

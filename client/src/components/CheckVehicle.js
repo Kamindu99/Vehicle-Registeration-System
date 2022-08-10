@@ -5,8 +5,6 @@ const CheckVehicle = ()=>{
 
   const[apiRes,setApires]=useState("");
 
-  const [show, setShow] = useState(true)
-
 
   const [vehicle, addName] = useState({
     name: "",
@@ -19,26 +17,18 @@ const CheckVehicle = ()=>{
   const onSubmit = async (e) => {
     e.preventDefault();
     await axios.post("http://localhost:8000/checkvehicle/add", vehicle)
-    setApires("");
-    window.location.reload();
- 
+    .then((res) => {
+      setApires(res.data)
+    });
 
   };
-
-  useEffect(()=>{
-    fetch('http://localhost:8000/checkvehicle/')
-    .then(res=>res.text())
-    .then(res=>setApires(res));
-    setTimeout(() => setShow(false), 5000);
-  },[]);
-
-
 
     return(
         <div >
            <div>
            <div style={{textAlign: "center", marginTop:"100px"}}>
-          <h4>Please Enter Your Vehicle Number to check whather Model of Vehicle..?</h4> <br/>
+          <h4>Please Enter Your Vehicle Number to check whather Model of Vehicle..?</h4> 
+          (Note:- Enter Your Vehicle Number as ex:- 13 ශ්‍රී 1111 / 250-9999 , 19-9999 / WP GA-9999, CAR-9999)<br/><br/><br/>
           <form onSubmit={(e) => onSubmit(e)}>
                <input
                       id="search-input"
@@ -63,11 +53,10 @@ const CheckVehicle = ()=>{
                   </form>
                  
                   
-        <center>{show &&  <h1><br/>{apiRes}<br/><br/></h1> }</center> <hr/>
-                 <h5>Enter Your Vehicle Number as <br/>
-                       13 ශ්‍රී 1111<br/>
-                       250-9999 , 19-9999<br/>
-                       WP GA-9999, CAR-9999</h5> 
+        <center><h1><br/>{apiRes}<br/><br/></h1> </center> <hr/>
+                 <h6>Made by Kamindu Gayantha </h6>
+                       071 5273881<br/>
+                       kamidugayantha123@gmail.com
                   </div>
             </div>
             
